@@ -1,6 +1,6 @@
 % Runge-Kutta 3
 
-% u0 should be a column vector i.e. [ - ; - ; ...]
+% u0 should
 
 function [t, u] = rk3(dudt, T, u0, h)
     
