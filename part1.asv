@@ -39,8 +39,9 @@ for i = 1:length(N)
 end
 
 d = diff(saved_m_end);
-er
+errors = sqrt(sum(d.^2, 2));
 
+loglog(N(,errors)
 
 %% C)
 

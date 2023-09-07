@@ -25,13 +25,14 @@ zlabel('m(:,3)')
 
 %% B)
 
-N = [50 100 200 400 800 1600];
+N = [50 100 200 400 800 1600 3200];
 T = 50;
 saved_m_end = zeros(length(N),3);
 
 for i = 1:length(N)
 
     h = T/N(i);
+    disp(N(i))
     
     [t, m_rk] = rk3(dmdt, T, m0, h);
     
@@ -41,7 +42,7 @@ end
 d = diff(saved_m_end);
 errors = sqrt(sum(d.^2, 2));
 
-loglog(errors)
+loglog(N(1:end-1),errors)
 
 %% C)
 
