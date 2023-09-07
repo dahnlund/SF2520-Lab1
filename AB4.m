@@ -19,12 +19,12 @@ function [t, u] = AB4(dudt, T, u0, h)
 
 
     function u_new = ab4step(dudt, t, u, h, k)
-        f0 = dudt(t(k - 0), u(k - 0, :));
-        f1 = dudt(t(k - 1), u(k - 1, :));
-        f2 = dudt(t(k - 2), u(k - 2, :));
-        f3 = dudt(t(k - 3), u(k - 3, :));
+        f0 = dudt(t(k - 0), u(k - 0, :)');
+        f1 = dudt(t(k - 1), u(k - 1, :)');
+        f2 = dudt(t(k - 2), u(k - 2, :)');
+        f3 = dudt(t(k - 3), u(k - 3, :)');
 
-        u_new = u(k, :) + h/24*(55*f0 - 59*f1 + 37*f2 - 9*f3);
+        u_new = u(k, :) + h/24*(55*f0 - 59*f1 + 37*f2 - 9*f3)';
     end
 
 end
