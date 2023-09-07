@@ -3,11 +3,11 @@
 % u0 should be a column vector i.e. [ - ; - ; ...]
 
 function [t, u] = rk3(dudt, T, u0, h)
-    
-    t = zeros(T/h, 1);
-    u = zeros(T/h, length(u0));
+    N = ceil(T/h);
+    t = zeros(N, 1);
+    u = zeros(N, length(u0));
     u(1,:) = u0';
-    N = T/h;
+    
 
     for k = 1:N
         tk = t(k);
