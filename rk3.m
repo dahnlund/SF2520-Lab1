@@ -1,4 +1,4 @@
-% Runge-Kutta 3
+% Runge-Kutta 3, by David Ahnlund and Emil Gestsson SF2520
 
 % u0 should be a column vector i.e. [ - ; - ; ...]
 
