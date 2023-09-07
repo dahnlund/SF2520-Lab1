@@ -30,7 +30,6 @@ T = 50;
 saved_m_end = zeros(length(N),3);
 
 for i = 1:length(N)
-
     h = T/N(i);
     disp(N(i))
     
@@ -60,11 +59,28 @@ a_cross = [0, -a(3), a(2) ;
 A = a_cross + alpha * a_cross ^ 2;
 lambdas = eig(A);
 
+T = 50;
+
 % find stable region root along eigenvalue line with h in (0, T] 
 s_region = @(z) abs(1 + z + z^2/2 + z^3/6) - 1;
-find_h0 = @(lambda) fzero(@(h) s_region(h*lambda), [eps(1), T]);
+find_h0 = @(lambda) fzero(@(h) s_region(h*lambda), [0.00001, T]);
 
 h0_candidates = arrayfun(find_h0, lambdas(abs(lambdas) > eps(1)));
 h0 = min(h0_candidates);
+
+
+%% D
+[t1, m_rk1] = rk3(dmdt, T, m0, h0 - 0.1);
+[t3, m_rk3] = rk3(dmdt, T, m0, h0 + 0.1);
+[t, m_rk] = rk3(dmdt, 50, m0, 0.001);
+
+clf
+hold on
+    plot3(m_rk1(:,1), m_rk1(:,2), m_rk1(:,3))
+    plot3(m_rk3(:,1), m_rk3(:,2), m_rk3(:,3))
+    plot3(m_rk(:,1), m_rk(:,2), m_rk(:,3))
+    legend("h = h_0 - 0.1", "h = h_0 + 0.1", "h = 0.001");
+hold off
+
 
 
