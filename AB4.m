@@ -7,7 +7,7 @@ function [t, u] = AB4(dudt, T, u0, h)
     t = zeros(N, 1);
     u = zeros(N, length(u0));
 
-    [t, u_init] = rk3(dudt, h*4, u0, h);
+    [~, u_init] = rk3(dudt, h*4, u0, h);
     u(1:4, :) = u_init(1:4, :);
 
     for k = 4:N
@@ -17,7 +17,7 @@ function [t, u] = AB4(dudt, T, u0, h)
         t(k+1) =  k*h;
     end
 
-
+    
     function u_new = ab4step(dudt, t, u, h, k)
         f0 = dudt(t(k - 0), u(k - 0, :));
         f1 = dudt(t(k - 1), u(k - 1, :));
