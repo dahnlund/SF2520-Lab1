@@ -25,7 +25,7 @@ zlabel('m(:,3)')
 
 %% B)
 
-N = [50 100 200 400 800 1600 3200];
+N = [50 100 200 400 800 1600 3200 6400];
 T = 50;
 saved_m_end = zeros(length(N),3);
 
@@ -43,6 +43,12 @@ d = diff(saved_m_end);
 errors = sqrt(sum(d.^2, 2));
 
 loglog(N(1:end-1),errors)
+
+hold on
+
+loglog(N,N.^(-3))
+
+diff(log2(flip(errors)))
 
 %% C)
 
