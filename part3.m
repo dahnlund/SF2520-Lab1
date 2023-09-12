@@ -2,7 +2,7 @@
 
 %Define rate constants
 
-r1 = 5e-2; r2 = 1.2e-4; r3 = 4e7;
+r1 = 5e-2; r2 = 1.2e4; r3 = 4e7;
 
 %% A
 
@@ -13,4 +13,6 @@ T = 100;
 [t, u_rk] = rk3(dxdt, 1000, [1;0;0], 0.0001);
 
 plot(t, u_rk)
+
+semilogy(t,u_rk)
 
