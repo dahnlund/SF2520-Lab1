@@ -8,9 +8,9 @@ r1 = 5e-2; r2 = 1.2e4; r3 = 4e7;
 
 dxdt = @(t,x) [-r1*x(1) + r2*x(2)*x(3); r1*x(1) - r2*x(2)*x(3) - r3*x(2)^2; r3*x(2)^2];
 
-T = 100;
+T = 10;
 
-h = 3e-4:5e-5:6e-4;    % For T = 10, this is an appropriate interval to test: h = 7e-4:1e-6:8e-4
+h = 7e-4:1e-6:8e-4;    % For T = 10, this is an appropriate interval to test: h = 7e-4:1e-6:8e-4. For T = 100: h = 3e-4:5e-5:6e-4;
 max_vals = zeros(length(h), 1);
 for i = 1:length(h)
     [t, u_rk] = rk3(dxdt, T, [1;0;0], h(i));
@@ -50,6 +50,6 @@ for i = 1:length(u_rk)
 
 end
 
-plot(eigs(:,1))
+plot(t,eigs(:,1))
 figure
-plot(eigs(:,3))
+plot(t,eigs(:,3))
