@@ -40,13 +40,13 @@ semilogy(t, u_rk)
 
 %% B
 
-J = @(a,b,c) [-r1, r2*c r2*b; r1, -r2*c-2*r3*b, -r2*b; 0, 2*r3*b, 0];
+J = @(x) [-r1, r2*x(3) r2*x(2); r1, -r2*x(3)-2*r3*x(2), -r2*x(2); 0, 2*r3*x(2), 0];
 
 eigs = zeros(size(u_rk));
 
 for i = 1:length(u_rk)
     
-    eigs(i,:) = eig(J(u_rk(i,1),u_rk(i,2),u_rk(i,3)));
+    eigs(i,:) = eig(J(u_rk(i,:)));
 
 end
 
