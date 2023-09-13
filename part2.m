@@ -34,6 +34,59 @@ drx= u(:, 3); dry= u(:, 4);
 
 timesteps_AB4 = diff(t); % Equals h
 
+%% B
+
+% time, correct values, upper limits of N for each method, and tolerence.
+T  = [5, 20, 40];
+V  = [0.4681 0.6355;-0.2186 -0.2136;-1.4926 -0.3339];
+tol= 0.1;
+
+% functions and thier upper limits on N.
+funcs = {@expeuler, @rk3, @AB4};
+
+% store errors and resulting N
+res = zeros(3);
+errs= zeros(3);
+for r = 1:3
+    f = funcs{r};
+    for c = 1:3
+        t = T(c);
+        
+
+        % bisection method implementation of lower_bound
+        % finds smallest N with error > tol
+        lo = 10;
+        hi = 1e6;
+        while hi - lo > 1
+            N = floor((lo + hi) / 2);
+            [~, u]= f(dudt, t, u0, t/N);
+            err = norm(u(end, 1:2) - V(c, :));
+    
+            if err < tol
+                hi = N;
+            else
+                lo = N;
+            end
+        end
+        
+        res(r, c) = N;
+        errs(r,c) = err;
+
+        fprintf("%d &", N);
+    end
+    fprintf("\\\\\\hline\n");
+end
+
+%res =
+%      940662      999999      999999
+%        3489       40046      646973
+%        2975       24739      175505
+
+%errs =
+%    0.1000    3.1647    1.5956
+%    0.1000    0.1012    0.1000
+%    0.0999    0.1000    0.1000
+
 %% C
 %Comparing solution with the adaptive - built in - ode23
 
