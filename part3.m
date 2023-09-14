@@ -31,11 +31,15 @@ end
 
 [t, u_rk] = rk3(dxdt, T, [1;0;0], h_max);
 plot(e)
-
+title("Relative error when \delta is introduced")
+ylabel("RelError")
+xlabel("n")
 figure
 plot(t, u_rk)
+title("Plot of u")
 figure
 semilogy(t, u_rk)
+title("Semilog-plot for u")
 
 
 %% B
