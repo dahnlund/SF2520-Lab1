@@ -21,9 +21,9 @@ for i = 1:length(h)
     e = abs(u_rk - u_rk_tilde)./u_rk;
     
     if norm(max(e)) > 10*delta   % Condition for when the solution is considered unstable
-        sprintf("Unstable for h = %d", h(i))
+        fprintf("Unstable for h = %d\n", h(i))
         h_max = h(i-1);
-        sprintf("Max allowed h is %d", h_max)
+        fprintf("Max allowed h is %d\n", h_max)
         break
     end   
     h_max = h(i);
@@ -62,7 +62,7 @@ max_eig = eigs(end,1);  % Seen from the plots
 
 s_condition = @(h) 2 + (h*max_eig) + (h*max_eig).^2/2 + (h*max_eig).^3/6;
 h_max_theoretical = fzero(s_condition, 1e-5);
-sprintf("Theoretical h_max: %d", h_max_theoretical)
+fprintf("Theoretical h_max: %d\n", h_max_theoretical)
 
 %% C
 
@@ -73,7 +73,7 @@ h = 2e-4;
 tic
 [t, u_rk] = rk3(dxdt, T, [1;0;0], h);
 time_rk = toc;
-sprintf("Time to run RK3 for T=1000 where h = %d: %d seconds", h,time_rk)
+fprintf("Time to run RK3 for T=1000 where h = %d: %f seconds\n", h,time_rk)
 
 delta = 0.01;
 [~, u_rk_tilde] = rk3(dxdt, T, [1+delta;0;0], h);  %Introduce a small petrubation
@@ -103,7 +103,7 @@ max_eig = eigs(end,1);  % Seen from the plots
 
 s_condition = @(h) 2 + (h*max_eig) + (h*max_eig).^2/2 + (h*max_eig).^3/6;
 h_max_theoretical = fzero(s_condition, 1e-5);
-sprintf("Theoretical h_max: %d", h_max_theoretical)
+fprintf("Theoretical h_max: %d\n", h_max_theoretical)
 
 %% D
 T = 10;
