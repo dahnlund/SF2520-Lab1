@@ -54,10 +54,49 @@ plot(t,eigs(:,1))
 figure
 plot(t,eigs(:,3))
 
-max_eig = eigs(end,1);
+max_eig = eigs(end,1);  % Seen from the plots
 
-% find stable region root along eigenvalue line with h in (0, T] 
 s_condition = @(h) 2 + (h*max_eig) + (h*max_eig).^2/2 + (h*max_eig).^3/6;
-
 h_max_theoretical = fzero(s_condition, 1e-5);
+sprintf("Theoretical h_max: %d", h_max_theoretical)
 
+%% C
+
+T = 1000;
+
+h = 2e-4;
+
+tic
+[t, u_rk] = rk3(dxdt, T, [1;0;0], h);
+time_rk = toc;
+sprintf("Time to run RK3 for T=1000 where h = %d: %d seconds", h,time_rk)
+
+delta = 0.01;
+[~, u_rk_tilde] = rk3(dxdt, T, [1+delta;0;0], h);  %Introduce a small petrubation
+e = abs(u_rk - u_rk_tilde)./u_rk;
+if norm(max(e)) > 10*delta
+    disp("Unstable solution")
+else
+    disp("Stable solution")
+end
+
+plot(t, u_rk)
+figure
+semilogy(t, u_rk)
+
+eigs = zeros(size(u_rk));
+
+for i = 1:length(u_rk)
+    
+    eigs(i,:) = eig(J(u_rk(i,:)));
+
+end
+plot(t,eigs(:,1))
+figure
+plot(t,eigs(:,3))
+
+max_eig = eigs(end,1);  % Seen from the plots
+
+s_condition = @(h) 2 + (h*max_eig) + (h*max_eig).^2/2 + (h*max_eig).^3/6;
+h_max_theoretical = fzero(s_condition, 1e-5);
+sprintf("Theoretical h_max: %d", h_max_theoretical)
