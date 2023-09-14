@@ -31,7 +31,6 @@ saved_m_end = zeros(length(N),3);
 
 for i = 1:length(N)
     h = T/N(i);
-    disp(N(i))
     
     [~, m_rk] = rk3(dmdt, T, m0, h);
     

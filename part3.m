@@ -53,3 +53,11 @@ end
 plot(t,eigs(:,1))
 figure
 plot(t,eigs(:,3))
+
+max_eig = eigs(end,1);
+
+% find stable region root along eigenvalue line with h in (0, T] 
+s_condition = @(h) 2 + (h*max_eig) + (h*max_eig).^2/2 + (h*max_eig).^3/6;
+
+h_max_theoretical = fzero(s_condition, 1e-5);
+
