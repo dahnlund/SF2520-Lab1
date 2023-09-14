@@ -104,3 +104,46 @@ max_eig = eigs(end,1);  % Seen from the plots
 s_condition = @(h) 2 + (h*max_eig) + (h*max_eig).^2/2 + (h*max_eig).^3/6;
 h_max_theoretical = fzero(s_condition, 1e-5);
 sprintf("Theoretical h_max: %d", h_max_theoretical)
+
+%% D
+T = 10;
+h_rk3 = 2e-4;
+h_ie = 0.2;
+
+[t_imp, u_imp] = impeuler(T, [1;0;0], h_ie);
+[t_rk3, u_rk] = rk3(dxdt, T, [1;0;0], h_rk3);
+
+figure
+title("3d)")
+subplot(2,1,1);
+hold on
+plot(t_imp, u_imp);
+plot(t_rk3, u_rk);
+title("comparison between impeuler and rk3 with T = 10.");
+hold off
+
+subplot(2,1,2);
+T = 1000;
+[t_imp, u_imp] = impeuler(T, [1;0;0], h_ie);
+plot(t_imp, u_imp);
+title("impeuler T = 1000.");
+
+%% E
+T = 1000;
+correct_u = [0.293414227164 0.000001716342048 0.706584056494];
+h_ie = [1, 0.1, 0.01, 0.001];
+h_rk3 = 2e-4;
+
+tic
+[~, u_rk3] = rk3_noplot(dxdt, T, [1;0;0], h_rk3);
+t = toc;
+
+fprintf("RK & %f & %.13f & %f \\\\\\hline\n", h_rk3, norm(u_rk3 - correct_u), t);
+
+for h = h_ie
+    tic
+    [~, u] = impeuler_noplot(T, [1;0;0], h);
+    t = toc;
+    
+    fprintf("IE & %f & %.13f & %f \\\\\\hline\n", h, norm(u - correct_u), t);
+end
