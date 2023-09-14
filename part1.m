@@ -1,4 +1,5 @@
 % Part 1
+clear
 a = 1/4 * [1, sqrt(11), 2]';
 alpha = 0.07;
 
@@ -14,13 +15,16 @@ dmdt = @(t,m) cross(a,m) + alpha*cross(a, cross(a,m));
 plot(t, m_rk)
 title('The three components as a funtion of t')
 xlabel('time in seconds')
-legend(['First' 'Second' 'Third'])
+legend('First','Second', 'Third')
 
 figure 
 plot3(m_rk(:,1), m_rk(:,2), m_rk(:,3))
 xlabel('m(:,1)')
 ylabel('m(:,2)')
 zlabel('m(:,3)')
+title("Plot3 of m")
+hold on
+plot3([0 a(1)], [0 a(2)], [0 a(3)])
 
 
 %% B)
@@ -45,6 +49,9 @@ loglog(N(1:end-1),errors)
 hold on
 
 loglog(N,N.^(-3))
+title("Log-log plot")
+legend("|m_N(T) - m_{2N}(T)|", "N^{-3}")
+xlabel("N")
 
 diff(log2(flip(errors)))
 
