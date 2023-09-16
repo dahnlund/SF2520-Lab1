@@ -85,7 +85,7 @@ h = 2e-4;
 tic
 [t, u_rk] = rk3(dxdt, T, [1;0;0], h);
 time_rk = toc;
-fprintf("Time to run RK3cn for T=1000 where h = %d: %f seconds\n", h,time_rk)
+fprintf("Time to run RK3 for T=%.0f where h = %d: %f seconds\n", T,h,time_rk)
 
 delta = 0.01;
 [~, u_rk_tilde] = rk3(dxdt, T, [1+delta;0;0], h);  %Introduce a small petrubation
@@ -116,6 +116,7 @@ max_eig = eigs(end,1);  % Seen from the plots
 s_condition = @(h) 2 + (h*max_eig) + (h*max_eig).^2/2 + (h*max_eig).^3/6;
 h_max_theoretical = fzero(s_condition, 1e-5);
 fprintf("Theoretical h_max: %d\n", h_max_theoretical)
+fprintf("Final values (t=T): x_A = %.4f, x_B = %.4f, x_C = %.4f\n", u_rk(end,1), u_rk(end,2), u_rk(end,3))
 
 %% D
 T = 10;
