@@ -66,7 +66,7 @@ fprintf("Theoretical h_max: %d\n", h_max_theoretical)
 
 %% C
 
-T = 1000;
+T = 100
 
 h = 2e-4;
 
