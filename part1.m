@@ -80,13 +80,24 @@ h0 = min(h0_candidates);
 [t3, m_rk3] = rk3(dmdt, T, m0, h0 + 0.1);
 [t, m_rk] = rk3(dmdt, 50, m0, 0.001);
 
-clf
-hold on
-    plot3(m_rk1(:,1), m_rk1(:,2), m_rk1(:,3))
-    plot3(m_rk3(:,1), m_rk3(:,2), m_rk3(:,3))
-    plot3(m_rk(:,1), m_rk(:,2), m_rk(:,3))
-    legend("h = h_0 - 0.1", "h = h_0 + 0.1", "h = 0.001");
+figure
+title("Solutions with h surrouding the stability limit");
+subplot(1, 2, 1);
+hold on 
+plot3(m_rk(:,1), m_rk(:,2), m_rk(:,3))
+plot3(m_rk1(:,1), m_rk1(:,2), m_rk1(:,3))
 hold off
+title("h = h_0 - 0.1");
+legend("h = 0.001", "h = h_0 - 0.1");
+xlabel("x"); ylabel("y"); zlabel("z");
 
+subplot(1, 2, 2);
+hold on 
+plot3(m_rk(:,1), m_rk(:,2), m_rk(:,3))
+plot3(m_rk3(:,1), m_rk3(:,2), m_rk3(:,3))
+hold off
+title("h = h_0 + 0.1")
+legend("h = 0.001", "h = h_0 + 0.1");
+xlabel("x"); ylabel("y"); zlabel("z");
 
 

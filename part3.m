@@ -121,31 +121,34 @@ fprintf("Final values (t=T): x_A = %.3d, x_B = %.3d, x_C = %.3d\n", u_rk(end,1),
 %% D
 T = 10;
 h_rk3 = 2e-4;
-h_ie = 0.2;
+h_ie = 5;
 
 [t_imp, u_imp] = impeuler(T, [1;0;0], h_ie);
 [t_rk3, u_rk] = rk3(dxdt, T, [1;0;0], h_rk3);
 
 figure
 title("3d)")
-subplot(2,1,1);
 hold on
 plot(t_imp, u_imp);
 plot(t_rk3, u_rk);
-title("comparison between impeuler and rk3 with T = 10.");
+title("Comparison between impeuler (h = 0.2) and rk3 (h = 0.0002) ending at T = 10.");
 hold off
+legend("x_A IE", "x_B IE", "x_C IE", "x_A RK", "x_B RK", "x_C RK");
+xlabel("time, t");
 
-subplot(2,1,2);
+figure
 T = 1000;
 [t_imp, u_imp] = impeuler(T, [1;0;0], h_ie);
 plot(t_imp, u_imp);
 title("impeuler T = 1000.");
+legend("x_A", "x_B", "x_C");
+xlabel("time, t");
 
 %% E
 T = 1000;
 correct_u = [0.293414227164 0.000001716342048 0.706584056494];
-h_ie = [1, 0.1, 0.01, 0.001];
-h_rk3 = 2e-4;
+h_ie = [1, 0.1, 0.01, 0.002, 0.001];
+h_rk3 = 2.9e-4;
 
 tic
 [~, u_rk3] = rk3_noplot(dxdt, T, [1;0;0], h_rk3);

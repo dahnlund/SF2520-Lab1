@@ -23,14 +23,36 @@ u0 = [
   0; -0.975
 ];
 
-T = 20;
+T = 10;
 [t, u] = AB4(dudt, T, u0, 0.0001);
 
 fprintf("Number of time steps AB4: %.0f\n", length(t))
 
-
 rx = u(:, 1); ry = u(:, 2);
 drx= u(:, 3); dry= u(:, 4);
+
+[t2, u2] = AB4(dudt, T, u0, 0.001);
+rx2 = u2(:, 1); ry2 = u2(:, 2);
+drx2= u2(:, 3); dry2= u2(:, 4);
+
+figure
+subplot(1,2, 1)
+plot(rx, ry);
+hold on 
+plot(rx2, ry2);
+hold off
+legend("h = 10^{-4}", "h = 10^{-3}")
+title("2a) position")
+xlabel("x"); ylabel("y");
+
+subplot(1,2, 2)
+plot(drx, dry);
+hold on 
+plot(drx2, dry2);
+hold off
+legend("h = 10^{-4}", "h = 10^{-3}")
+title("2a) velocity")
+xlabel("x'_t"); ylabel("y'_t");
 
 timesteps_AB4 = diff(t); % Equals h
 
