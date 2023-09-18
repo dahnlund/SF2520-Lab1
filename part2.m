@@ -112,6 +112,7 @@ plot(t(2:end), timesteps_23)
 title("Timestep size in ode23")
 xlabel("Time, t")
 ylabel("Step size, h")
+figure 
 
 plot(t, rx_23); hold on;plot(t, ry_23)
 legend("x-component of r", "y-component of r")

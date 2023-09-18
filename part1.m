@@ -19,6 +19,7 @@ legend('First','Second', 'Third')
 
 figure 
 plot3(m_rk(:,1), m_rk(:,2), m_rk(:,3))
+axis equal
 xlabel('m(:,1)')
 ylabel('m(:,2)')
 zlabel('m(:,3)')
@@ -44,14 +45,14 @@ end
 d = diff(saved_m_end);
 errors = sqrt(sum(d.^2, 2));
 
-loglog(N(1:end-1),errors)
+loglog(T./N(1:end-1),errors)
 
 hold on
 
-loglog(N,N.^(-3))
+loglog(T./N,(T./N).^(3))
 title("Log-log plot")
-legend("|m_N(T) - m_{2N}(T)|", "N^{-3}")
-xlabel("N")
+legend("|m_N(T) - m_{2N}(T)|", "h^{3}")
+xlabel("h")
 
 diff(log2(flip(errors)))
 
